@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+const ll M=1e9+7;
+ll dp[1000001];
+ 
+ll solve(ll n,vector<ll>&v)
+{
+    if(dp[n]!=-1) return dp[n];
+ 
+    if(n==0) return 1;
+ 
+    ll ans =0;
+   
+    for(auto i: v)
+    {
+        if(i<=n)
+        ans=(ans%M+solve(n-i,v)%M)%M;
+    }
+    return dp[n]=ans;
+}
+ 
+int main()
+{
+    ll n,x;  cin>>n>>x;
+    memset(dp,-1,sizeof(dp));
+    vector<ll>v(n);
+ 
+    for(auto &it : v) cin>>it;
+ 
+    if(solve(x,v)!=-1) cout<<solve(x,v)%M;
+    else cout<<-1<<endl;
+}

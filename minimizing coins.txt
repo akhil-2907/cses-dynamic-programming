@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+const ll M=1e9+7;
+ll dp[1000001];
+ 
+ll solve(ll n,vector<ll>&v)
+{
+    if(dp[n]!=-1) return dp[n];
+ 
+    if(n==0) return 0;
+ 
+ 
+    ll ans =INT_MAX;
+   
+    for(auto i: v)
+    {
+        if(i<=n)
+        ans= min(ans,1+solve(n-i,v));
+    }
+    return dp[n]=ans;
+}
+ 
+int main()
+{
+    ll n,x;  cin>>n>>x;
+    memset(dp,-1,sizeof(dp));
+    vector<ll>v(n);
+ 
+    for(auto &it : v) cin>>it;
+ 
+    if(solve(x,v)!=INT_MAX) cout<<solve(x,v);
+    else cout<<-1<<endl;
+}

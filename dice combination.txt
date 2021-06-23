@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+const ll M=1e9+7;
+ll dp[1000001];
+ 
+ll solve(ll n)
+{
+    if(dp[n]!=-1) return dp[n];
+ 
+    if(n==0) return 1;
+ 
+    if(n<0) return 0;
+ 
+    ll ans =0;
+    ll t;
+    if(n>6) t =6;
+    else t =n;
+ 
+    for(ll i=1;i<=t;i++)
+    {
+        ans= (ans%M+solve(n-i)%M)%M;
+    }
+    return dp[n]=ans;
+}
+ 
+int main()
+{
+    ll n;  cin>>n;
+    memset(dp,-1,sizeof(dp));
+ 
+    cout<<solve(n)%M<<endl;
+}
